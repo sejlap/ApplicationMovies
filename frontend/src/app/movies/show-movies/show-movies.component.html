@@ -1,0 +1,53 @@
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+          <button type="button" class="close" 
+          data-dismiss="modal" aria-label="Close"
+          (click)="closeClick()" >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <app-star-movie [movies]="movies" *ngIf="ActivateEditMoviesComp">
+            </app-star-movie>
+        </div>
+      </div>
+    </div>
+</div>
+  
+
+   <mat-slide-toggle (change)="refreshMoviesList()">Load films</mat-slide-toggle>
+  <div class="d-flex flex-row">
+    <input [(ngModel)]="MoviesTitleFilter" class="form-control"
+    (keyup)="SearchFn()" placeholder="Search by title">
+    <input [(ngModel)]="RatingsFilter" class="form-control"
+    (keyup)="SearchFn1()" placeholder="Search by stars">
+    <input [(ngModel)]="YearsFilter" class="form-control"
+    (keyup)="SearchFn2()" placeholder="Search by years">
+  </div>
+    <div class="d-flex flex-row">
+    
+ </div>
+ <div class="d-flex flex-row">
+
+    </div>
+<mat-card class="example-card" *ngFor="let dataItem of MoviesList">
+    <mat-card-title>{{dataItem.title}}</mat-card-title>
+    <mat-card-subtitle>
+         {{dataItem.releaseDate}} <br>
+     Actors:    {{dataItem.casts}} <br>
+     Stars:  {{dataItem.ratings}}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <p>
+        {{dataItem.descriptionText}}
+      </p>
+      <img [src]="dataItem.coverImage">
+      <button type="button" id="btn" class="btn btn-light mr-1" data-toggle="modal" data-target="#exampleModal" (click)="rateClick(dataItem)" data-backdrop="static" data-keyboard="false"> Rate </button>
+    </mat-card-content>
+</mat-card>
+
+<button mat-stroked-button color="primary" (click)="refreshMoreMoviesList()" id="button">View more</button>
